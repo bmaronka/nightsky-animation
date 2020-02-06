@@ -36,7 +36,7 @@ module.exports = function (env, argv) {
         context: path.resolve(__dirname, ''),
         mode: argv.mode,
         devtool: 'source-map',
-        entry: ['./js/main.js', './scss/style.scss'],
+        entry: './js/main.js',
         output: {
             path: path.resolve(__dirname, 'dist'),
             filename: argv.mode === 'development' ? '[name].js' : '[name].min.js',
@@ -45,16 +45,17 @@ module.exports = function (env, argv) {
         resolve: resolve,
         module: {
             rules: [{
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: /node_modules/
-            },
-            {
-                test: /\.scss$/,
-                loaders: argv.mode === 'development'
-                    ? ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']
-                    : [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-            }]
+                    test: /\.js$/,
+                    loader: 'babel-loader',
+                    exclude: /node_modules/
+                },
+                {
+                    test: /\.scss$/,
+                    loaders: argv.mode === 'development' ?
+                        ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap'] :
+                        [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+                }
+            ]
         },
         optimization: optimization,
         plugins: [
